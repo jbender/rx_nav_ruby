@@ -3,8 +3,6 @@ require 'nori'
 require 'nokogiri'
 require 'ostruct'
 
-require 'rx_nav/version'
-
 # Core of the API responses
 require 'rx_nav/concept'
 require 'rx_nav/interaction'
