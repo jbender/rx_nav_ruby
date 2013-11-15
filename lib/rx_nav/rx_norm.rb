@@ -1,5 +1,5 @@
 module RxNav
-  class PrescribableRxNorm
+  class RxNorm
     class << self
       def search_by_name name, max_results = 20, option = 0
         query = "/approximateTerm?term=#{name}&maxEntries=#{max_results}"
@@ -34,8 +34,7 @@ module RxNav
       private
 
       def get_response_hash query
-        request = URI.parse(RxNav::BASE_URL + '/Prescribe' + query)
-        return RxNav.nori.parse(Net::HTTP.get request)[:rxnormdata]
+        RxNav.make_request query
       end
     end
 

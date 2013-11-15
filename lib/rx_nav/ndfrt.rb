@@ -80,8 +80,7 @@ module RxNav
       private
 
       def get_response_hash query
-        request = URI.parse(RxNav::BASE_URL + '/Ndfrt' + query)
-        return RxNav.nori.parse(Net::HTTP.get request)[:ndfrtdata]
+        RxNav.make_request('/Ndfrt', query)[:ndfrtdata]
       end
 
       def get_options type

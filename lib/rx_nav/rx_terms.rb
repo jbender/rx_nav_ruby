@@ -16,8 +16,7 @@ module RxNav
       private
 
       def get_response_hash query
-        request = URI.parse(RxNav::BASE_URL + '/RxTerms' + query)
-        return RxNav.nori.parse(Net::HTTP.get request)[:rxtermsdata]
+        RxNav.make_request('/RxTerms', query)[:rxtermsdata]
       end
     end
   end
