@@ -7,8 +7,8 @@ module RxNav
         # other than the default
         # query += "&option=#{option}" if option
         data = get_response_hash(query)[:approximate_group][:candidate]
-        data = [data] unless data.is_a?(Array)
-        return data.map { |c| RxNav::Concept.new(c) }
+        data = [data] if (data && !data.is_a?(Array))
+        return data.nil? ? nil : data.map { |c| RxNav::Concept.new(c) }
       end
 
       def find_rxcui_by_id type, id
