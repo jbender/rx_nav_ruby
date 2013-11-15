@@ -18,8 +18,6 @@ module RxNav
     end
 
     def get_terms_info
-      raise "This concept doesn't have a rxcui" if self.rxcui.nil?
-      merge_concept RxNav::RxTerms.all_info(self.rxcui)
       if self.rxcui.nil?
         if self.nui.nil?
           raise "This concept doesn't have a nui or rxcui"
@@ -28,7 +26,6 @@ module RxNav
         end
       end
       rxcui = rxcui ? rxcui : self.rxcui
-      puts rxcui, self.rxcui
       rxcui ? merge_concept(RxNav::RxTerms.get_info(rxcui)) : self
     end
 
@@ -41,7 +38,6 @@ module RxNav
         end
       end
       nui = concept ? concept.nui : self.nui
-      puts self.nui, concept
       nui ? merge_concept(RxNav::NDFRT.get_info(nui)) : self
     end
 
