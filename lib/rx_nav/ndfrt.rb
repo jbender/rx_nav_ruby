@@ -35,7 +35,8 @@ module RxNav
       end
 
       def find_by_id type, id
-        type = type.upcase
+        type  = type.upcase
+        id    = id.to_s
         query = "/idType=#{type}&idString=#{id}"
         return get_concepts query
       end
@@ -65,22 +66,24 @@ module RxNav
         end
       end
 
-      def get_info nui
+      def get_info nui, concept = nil
+        raise "Nui cannot be nil" if nui.nil?
         query = "/allInfo/#{nui}"
-        return OpenStruct.new get_response_hash(query)[:full_concept]
+        data = get_response_hash(query)[:full_concept]
+        return RxNav::Concept.new(data)
       end
 
       def all_records_by_kind kind
         kind = kind.upcase + "_KIND"
         query = "/allconcepts?kind=#{kind}"
         data = get_response_hash(query)[:group_concepts][:concept]
-        return data.map { |i| RxNav::Concept.new i }
+        return data.map { |c| RxNav::Concept.new c }
       end
   
       private
 
       def get_response_hash query
-        RxNav.make_request('/Ndfrt', query)[:ndfrtdata]
+        RxNav.make_request('/Ndfrt' + query)[:ndfrtdata]
       end
 
       def get_options type
@@ -89,10 +92,13 @@ module RxNav
       end
 
       def get_concepts query
-        response = get_response_hash query
-        data = response[:group_concepts][:concept]
-        data = [data] unless data.is_a?(Array)
-        return data.map { |c| RxNav::Concept.new(c) }
+        data = get_response_hash(query)[:group_concepts]
+        if data && data[:concept]
+          data = [data] unless data.is_a?(Array)
+          return data.map { |c| RxNav::Concept.new(c) }
+        else
+          return nil
+        end
       end
 
     end
