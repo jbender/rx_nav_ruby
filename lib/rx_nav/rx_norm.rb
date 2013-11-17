@@ -29,6 +29,11 @@ module RxNav
         return extract_rxcui query
       end
 
+      def spelling_suggestions name
+        query = "/spellingsuggestions?name=#{name}"
+        get_response_hash(query)[:suggestion_group][:suggestion_list][:suggestion]
+      end
+
       def status id
         query = "/rxcui/#{id}/status"
         status = OpenStruct.new get_response_hash(query)[:rxcui_status]
