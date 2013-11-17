@@ -1,14 +1,20 @@
 module RxNav
   class RxNorm
     class << self
-      def search_by_name name, max_results = 20, option = 0
-        query = "/approximateTerm?term=#{name}&maxEntries=#{max_results}"
-        # The API spec includes an option parameter, but doesn't specify options
-        # other than the default
-        # query += "&option=#{option}" if option
+      
+      def search_by_name name, options = {}
+        options = {max_results: 20, options: 0}.merge(options)
+        
+        query = %Q(/approximateTerm?term=#{name}&maxEntries=#{options[:max_results]}&options=#{options[:options]})
+
+        # Get the data we care about in the right form
         data = get_response_hash(query)[:approximate_group][:candidate]
         data = [data] if (data && !data.is_a?(Array))
-        return data.nil? ? nil : data.map { |c| RxNav::Concept.new(c) }
+
+        # If we didn't get anything, say so
+        return nil if data.nil?
+        
+        return data.map { |c| RxNav::Concept.new(c) }
       end
 
       def find_rxcui_by_id type, id
@@ -21,6 +27,13 @@ module RxNav
       def find_rxcui_by_name name
         query = "/rxcui?name=#{name}"
         return extract_rxcui query
+      end
+
+      def status id
+        query = "/rxcui/#{id}/status"
+        status = OpenStruct.new get_response_hash(query)[:rxcui_status]
+        status.send("active?=", status.status == 'Active')
+        return status
       end
 
       def properties id

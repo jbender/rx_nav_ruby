@@ -4,7 +4,10 @@ module RxNav
   class Concept < OpenStruct
 
     def name
-      name = self.concept_name
+      name = self.display_name ||
+             self.full_name ||
+             self.full_generic_name ||
+             self.concept_name
       name ? name.capitalize : nil
     end
 
@@ -14,7 +17,7 @@ module RxNav
     end
 
     def to_s
-      display_name || full_name || full_generic_name || name
+      name
     end
 
     def get_terms_info
