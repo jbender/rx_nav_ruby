@@ -29,7 +29,7 @@ module RxNav
         end
       end
       rxcui = rxcui ? rxcui : self.rxcui
-      rxcui ? merge_concept(RxNav::RxTerms.get_info(rxcui)) : self
+      return merge_concept RxNav::RxTerms.get_info(rxcui)
     end
 
     def get_ndfrt_info
@@ -41,7 +41,7 @@ module RxNav
         end
       end
       nui = concept ? concept.nui : self.nui
-      nui ? merge_concept(RxNav::NDFRT.get_info(nui)) : self
+      return merge_concept RxNav::NDFRT.get_info(nui)
     end
 
     private

@@ -5,7 +5,9 @@ module RxNav
       def search_by_name name, options = {}
         options = {max_results: 20, options: 0}.merge(options)
         
-        query = %Q(/approximateTerm?term=#{name}&maxEntries=#{options[:max_results]}&options=#{options[:options]})
+        query = "/approximateTerm?term=#{name}"\
+                "&maxEntries=#{options[:max_results]}"\
+                "&options=#{options[:options]}"
 
         # Get the data we care about in the right form
         data = get_response_hash(query)[:approximate_group][:candidate]
@@ -29,15 +31,39 @@ module RxNav
         return extract_rxcui query
       end
 
+      def find_drugs_by_name name
+        query = "/drugs?name=#{name}"
+        drugs = []
+        dg = get_response_hash(query)[:drug_group]
+        dg[:concept_group].each do |cg|
+          drugs << {
+            name: dg[:name],
+            concepts: cg[:concept_properties].map { |c| RxNav::Concept.new(c) }
+          }
+        end
+        return drugs
+      end
+
       def spelling_suggestions name
         query = "/spellingsuggestions?name=#{name}"
         get_response_hash(query)[:suggestion_group][:suggestion_list][:suggestion]
       end
 
       def status id
-        query = "/rxcui/#{id}/status"
-        status = OpenStruct.new get_response_hash(query)[:rxcui_status]
-        status.send("active?=", status.status == 'Active')
+        query           = "/rxcui/#{id}/status"
+        data            = get_response_hash(query)[:rxcui_status]
+        status          = OpenStruct.new
+        reported_status = data[:status].downcase
+
+        status.send("remapped?=", reported_status == 'remapped')
+        status.send("active?=", reported_status == 'active')
+        
+        if status.remapped?
+          concepts = data[:min_concept_group][:min_concept]
+          concepts = [concepts] if (concepts && !concepts.is_a?(Array))
+          status.remapped_to = concepts.map { |c| c[:rxcui] }
+        end
+        
         return status
       end
 
@@ -48,19 +74,12 @@ module RxNav
 
       def quantity id
         query = "/rxcui/#{id}/quantity"
-        return OpenStruct.new get_response_hash(query)[:quantity_group]
+        return get_response_hash(query)[:quantity_group][:quantity]
       end
 
       def strength id
         query = "/rxcui/#{id}/strength"
-        return OpenStruct.new get_response_hash(query)[:strength_group]
-      end
-
-      def complete_info id
-        result = self.properties(id)
-        result.strength = self.strength(id).strength
-        result.quantity = self.quantity(id).quantity
-        return result
+        return get_response_hash(query)[:strength_group][:strength]
       end
 
       private
