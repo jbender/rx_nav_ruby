@@ -94,8 +94,9 @@ module RxNav
       def get_concepts query
         data = get_response_hash(query)[:group_concepts]
         if data && data[:concept]
-          data = [data] unless data.is_a?(Array)
-          return data.map { |c| RxNav::Concept.new(c) }
+          concepts = data[:concept]
+          concepts = [concepts] unless concepts.is_a?(Array)
+          return concepts.map { |c| RxNav::Concept.new(c) }
         else
           return nil
         end

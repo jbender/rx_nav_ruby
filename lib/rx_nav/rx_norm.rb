@@ -97,7 +97,9 @@ module RxNav
           return nil
         end
       end
-
     end
+
+    self.singleton_class.send(:alias_method, :find_by_name, :search_by_name)
+
   end
 end

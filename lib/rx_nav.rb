@@ -4,13 +4,13 @@ require 'nokogiri'
 require 'ostruct'
 
 # Core of the API responses
-require_relative 'rx_nav/concept'
-require_relative 'rx_nav/interaction'
+require 'rx_nav/concept'
+require 'rx_nav/interaction'
 
 # Individual APIs
-require_relative 'rx_nav/ndfrt'
-require_relative 'rx_nav/rx_norm'
-require_relative 'rx_nav/rx_terms'
+require 'rx_nav/ndfrt'
+require 'rx_nav/rx_norm'
+require 'rx_nav/rx_terms'
 
 module RxNav
 
