@@ -80,7 +80,7 @@ module RxNav
     end
 
     def merge_concept concept
-      if concept_hash.empty?
+      if concept_hash.nil? || concept_hash.empty?
         return false
       else
         concept_hash.each do |k,v|
