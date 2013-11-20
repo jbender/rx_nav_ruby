@@ -20,16 +20,23 @@ module RxNav
       name
     end
 
+    # A call to fetch the relevant information and add it to the model
+    # Note: returns false if no information was found
     def get_terms_info
+      # Terms use the rxcui for the lookup
       if self.rxcui.nil?
+        # Fail if we have a concept without any IDs (that are written so far)
         if self.nui.nil?
           raise "This concept doesn't have a nui or rxcui"
         else
           rxcui = RxNav::RxNorm.find_rxcui_by_id('nui', self.nui)
         end
       end
-      rxcui = rxcui ? rxcui : self.rxcui
-      return merge_concept RxNav::RxTerms.get_info(rxcui)
+      # If we had to look it up, use that, otherwise use the model's
+      rxcui = rxcui || self.rxcui
+      info = RxNav::RxTerms.get_info(rxcui)
+      # Check to make sure there are attributes to merge, otherwise note failure
+      info.attributes.nil? ? false : merge_concept(info)
     end
 
     def get_ndfrt_info
