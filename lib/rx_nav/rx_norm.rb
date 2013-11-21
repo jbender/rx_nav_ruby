@@ -35,6 +35,7 @@ module RxNav
         query = "/drugs?name=#{name}"
         drugs = []
         dg = get_response_hash(query)[:drug_group]
+        return nil if dg.nil?
         dg[:concept_group].each do |cg|
           drugs << {
             name: dg[:name],

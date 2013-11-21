@@ -7,8 +7,9 @@ module RxNav
       name = self.display_name ||
              self.full_name ||
              self.full_generic_name ||
-             self.concept_name
-      name ? name.capitalize : nil
+             self.concept_name ||
+             @table[:name]
+      name ? titleize_str(name) : nil
     end
 
     def kind
@@ -77,6 +78,10 @@ module RxNav
 
     def titleize_kind str
       str.split("_")[0...-1].map(&:capitalize).join(" ") if str.is_a? String
+    end
+
+    def titleize_str str
+      str.gsub(/\w+/) { |w| w.capitalize } if str.is_a? String
     end
 
     def merge_concept concept
