@@ -5,6 +5,7 @@ module RxNav
 
     def name
       name = self.display_name ||
+             self.synonym ||
              self.full_name ||
              self.full_generic_name ||
              self.concept_name ||

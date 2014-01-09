@@ -35,19 +35,26 @@ module RxNav
         query = "/drugs?name=#{name}"
         drugs = []
         dg = get_response_hash(query)[:drug_group]
-        return nil if dg.nil?
+        return nil if dg[:concept_group].nil?
         dg[:concept_group].each do |cg|
-          drugs << {
-            name: dg[:name],
-            concepts: cg[:concept_properties].map { |c| RxNav::Concept.new(c) }
-          }
+          props = cg[:concept_properties]
+          if props.nil?
+            next
+          else
+            concepts = props.kind_of?(Array) ? props.map { |c| RxNav::Concept.new(c) } : RxNav::Concept.new(props)
+            drugs << {
+              name: dg[:name],
+              concepts: concepts
+            }
+          end
         end
         return drugs
       end
 
       def spelling_suggestions name
         query = "/spellingsuggestions?name=#{name}"
-        get_response_hash(query)[:suggestion_group][:suggestion_list][:suggestion]
+        data = get_response_hash(query)[:suggestion_group][:suggestion_list]
+        data ? data[:suggestion] : nil
       end
 
       def status id
