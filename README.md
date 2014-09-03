@@ -1,7 +1,7 @@
 # RxNav
 
-[![Gem Version](https://badge.fury.io/rb/rx_nav.png)](http://badge.fury.io/rb/rx_nav) [![Dependency Status](https://gemnasium.com/jbender/rx_nav_ruby.svg)](https://gemnasium.com/jbender/rx_nav_ruby)
- [![Code Climate](https://codeclimate.com/github/jbender/rx_nav_ruby.png)](https://codeclimate.com/github/jbender/rx_nav_ruby) 
+[![Gem Version](http://img.shields.io/gem/v/rx_nav.svg?style=flat-square)](http://badge.fury.io/rb/rx_nav) [![Dependency Status](http://img.shields.io/gemnasium/jbender/rx_nav_ruby.svg?style=flat-square)](https://gemnasium.com/jbender/rx_nav_ruby)
+ [![Code Climate](http://img.shields.io/codeclimate/github/jbender/rx_nav_ruby.svg?style=flat-square)](https://codeclimate.com/github/jbender/rx_nav_ruby) 
 
 This gem makes it easier to work with the RxNav REST APIs, as enumerated on [this page](http://rxnav.nlm.nih.gov/APIsOverview.html).
 
