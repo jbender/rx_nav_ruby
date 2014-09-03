@@ -79,7 +79,7 @@ module RxNav
         data = get_response_hash(query)[:group_concepts][:concept]
         return data.map { |c| RxNav::Concept.new c }
       end
-  
+
       private
 
       def get_response_hash query

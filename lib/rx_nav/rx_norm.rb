@@ -1,10 +1,10 @@
 module RxNav
   class RxNorm
     class << self
-      
+
       def search_by_name name, options = {}
         options = {max_results: 20, options: 0}.merge(options)
-        
+
         query = "/approximateTerm?term=#{name}"\
                 "&maxEntries=#{options[:max_results]}"\
                 "&options=#{options[:options]}"
@@ -15,7 +15,7 @@ module RxNav
 
         # If we didn't get anything, say so
         return nil if data.nil?
-        
+
         return data.map { |c| RxNav::Concept.new(c) }
       end
 
@@ -65,13 +65,13 @@ module RxNav
 
         status.send("remapped?=", reported_status == 'remapped')
         status.send("active?=", reported_status == 'active')
-        
+
         if status.remapped?
           concepts = data[:min_concept_group][:min_concept]
           concepts = [concepts] if (concepts && !concepts.is_a?(Array))
           status.remapped_to = concepts.map { |c| c[:rxcui] }
         end
-        
+
         return status
       end
 
@@ -95,7 +95,7 @@ module RxNav
       def get_response_hash query
         RxNav.make_request(query)[:rxnormdata]
       end
-      
+
       def extract_rxcui query
         data = get_response_hash(query)
         if data[:id_group]

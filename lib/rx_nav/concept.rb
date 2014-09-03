@@ -28,7 +28,7 @@ module RxNav
 
     # Supplementary calls to fetch info from other DBs
     # Note: these methods return false if no information was found
-    
+
     def get_terms_info
       rxcui = get_rxcui
       info = RxNav::RxTerms.get_info(rxcui)
