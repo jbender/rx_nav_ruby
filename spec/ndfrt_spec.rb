@@ -1,5 +1,3 @@
-require_relative '../lib/rx_nav'
-
 describe RxNav::NDFRT do
   describe "#api_version" do
     it "returns a string" do
