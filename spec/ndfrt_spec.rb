@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe RxNav::NDFRT do
   describe "#api_version" do
     it "returns a string" do
