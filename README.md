@@ -26,6 +26,8 @@ Or install it yourself as:
 
 Each service has it's own class, which have the class methods enumerated below. When appropriate, these methods will return `Concept`s, which are further queryable to retrieve more information about a specific drug. **Question marks indicate optional parameters.**
 
+Please note that according to the [NLM Terms of Service](http://rxnav.nlm.nih.gov/TermOfService.html), you can will only be able to make **20 requests/second/IP**, so keep that in mind when implementing this project.
+
 ### [NDF-RT (Class named NDFRT)](https://github.com/jbender/rx_nav_ruby/blob/master/lib/rx_nav/ndfrt.rb)
 
   * all_records_by_kind
