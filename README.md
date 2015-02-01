@@ -32,8 +32,6 @@ Please note that according to the [NLM Terms of Service](http://rxnav.nlm.nih.go
 
   * all_records_by_kind
   * get_info
-  * find_interactions_between(nui, scope?)
-  * find_interacting_drugs(nui, scope?)
   * find_by_name(name, kind?)
   * find_by_id(type, id)
   * find_by({type: x, id: y} OR {name: x, kind: y})
