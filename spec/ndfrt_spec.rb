@@ -59,15 +59,71 @@ describe RxNav::NDFRT do
 
   describe "#possible_associations" do
     before :all do
-      @associations = RxNav::NDFRT.possible_associations
+      @result = RxNav::NDFRT.possible_associations
     end
 
     it "returns an array" do
-      expect(@associations).to be_kind_of(Array)
+      expect(@result).to be_kind_of(Array)
     end
 
     it "returns an array of strings" do
-      expect(@associations.first).to be_kind_of(String)
+      expect(@result.first).to be_kind_of(String)
+    end
+  end
+
+  describe "#possible_types" do
+    before :all do
+      @result = RxNav::NDFRT.possible_types
+    end
+
+    it "returns an array" do
+      expect(@result).to be_kind_of(Array)
+    end
+
+    it "returns an array of strings" do
+      expect(@result.first).to be_kind_of(String)
+    end
+  end
+
+  describe "#possible_kinds" do
+    before :all do
+      @result = RxNav::NDFRT.possible_kinds
+    end
+
+    it "returns an array" do
+      expect(@result).to be_kind_of(Array)
+    end
+
+    it "returns an array of strings" do
+      expect(@result.first).to be_kind_of(String)
+    end
+  end
+
+  describe "#possible_properties" do
+    before :all do
+      @result = RxNav::NDFRT.possible_properties
+    end
+
+    it "returns an array" do
+      expect(@result).to be_kind_of(Array)
+    end
+
+    it "returns an array of strings" do
+      expect(@result.first).to be_kind_of(String)
+    end
+  end
+
+  describe "#possible_roles" do
+    before :all do
+      @result = RxNav::NDFRT.possible_roles
+    end
+
+    it "returns an array" do
+      expect(@result).to be_kind_of(Array)
+    end
+
+    it "returns an array of strings" do
+      expect(@result.first).to be_kind_of(String)
     end
   end
 
