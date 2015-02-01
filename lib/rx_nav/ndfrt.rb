@@ -50,21 +50,24 @@ module RxNav
         return get_concepts query
       end
 
-      def find_interacting_drugs nui, scope = 3
-        query = "/interaction/nui=#{nui}&scope=#{scope}"
-        response = get_response_hash query
-        data = response[:group_interactions][:interactions][:group_interacting_drugs][:interacting_drug]
-        data = [data] unless data.is_a? Array
-        return data.map { |i| RxNav::Concept.new i[:concept] }
-      end
-
-      def find_interactions_between nuis, scope = 3
-        query = "/interaction?nuis=#{nuis.join('+')}&scope=#{scope}"
-        data = get_response_hash query
-        return data[:full_interaction_group][:full_interaction].map do |fi|
-          RxNav::Interaction.new fi[:interaction_triple_group][:interaction_triple]
-        end
-      end
+      # PLEASE NOTE:
+      # These methods were deprecated in the Sept 2014 release of ND-FRT
+      #
+      # def find_interacting_drugs nui, scope = 3
+      #   query = "/interaction/nui=#{nui}&scope=#{scope}"
+      #   response = get_response_hash query
+      #   data = response[:group_interactions][:interactions][:group_interacting_drugs][:interacting_drug]
+      #   data = [data] unless data.is_a? Array
+      #   return data.map { |i| RxNav::Concept.new i[:concept] }
+      # end
+      #
+      # def find_interactions_between nuis, scope = 3
+      #   query = "/interaction?nuis=#{nuis.join('+')}&scope=#{scope}"
+      #   data = get_response_hash query
+      #   return data[:full_interaction_group][:full_interaction].map do |fi|
+      #     RxNav::Interaction.new fi[:interaction_triple_group][:interaction_triple]
+      #   end
+      # end
 
       def get_info nui, concept = nil
         raise "Nui cannot be nil" if nui.nil?
