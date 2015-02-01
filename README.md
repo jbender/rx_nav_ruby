@@ -1,6 +1,6 @@
 # RxNav
 
-[![Gem Version](http://img.shields.io/gem/v/rx_nav.svg?style=flat-square)](http://badge.fury.io/rb/rx_nav) [![Dependency Status](http://img.shields.io/gemnasium/jbender/rx_nav_ruby.svg?style=flat-square)](https://gemnasium.com/jbender/rx_nav_ruby)
+[![Gem Version](http://img.shields.io/gem/v/rx_nav.svg?style=flat-square)](https://rubygems.org/gems/rx_nav) [![Dependency Status](http://img.shields.io/gemnasium/jbender/rx_nav_ruby.svg?style=flat-square)](https://gemnasium.com/jbender/rx_nav_ruby)
  [![Code Climate](http://img.shields.io/codeclimate/github/jbender/rx_nav_ruby.svg?style=flat-square)](https://codeclimate.com/github/jbender/rx_nav_ruby) [![Coverage Status](https://img.shields.io/coveralls/jbender/rx_nav_ruby.svg?style=flat-square)](https://coveralls.io/r/jbender/rx_nav_ruby)
  [![Build Status](http://img.shields.io/travis/jbender/rx_nav_ruby.svg?style=flat-square)](https://travis-ci.org/jbender/rx_nav_ruby)
 
