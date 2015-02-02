@@ -31,7 +31,7 @@ module RxNav
 
     def get_terms_info
       rxcui = get_rxcui
-      info = RxNav::RxTerms.get_info(rxcui)
+      info = RxNav::RxTerms.all_info(rxcui)
       merge_concept info
     end
 
@@ -58,7 +58,8 @@ module RxNav
         if self.nui.nil?
           raise "This concept doesn't have a nui or rxcui"
         else
-          self.rxcui = RxNav::RxNorm.find_rxcui_by_id('nui', self.nui)
+           rxcui = RxNav::RxNorm.find_rxcui_by_id('nui', self.nui)
+           self.rxcui = rxcui.is_a?(Array) ? rxcui.first : rxcui
         end
       end
       # If we had to look it up, use that, otherwise use the model's
@@ -85,7 +86,7 @@ module RxNav
       str.gsub(/\w+/) { |w| w.capitalize } if str.is_a? String
     end
 
-    def merge_concept concept
+    def merge_concept concept_hash
       if concept_hash.nil? || concept_hash.empty?
         return false
       else

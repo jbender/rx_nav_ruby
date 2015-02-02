@@ -81,8 +81,14 @@ module RxNav
       end
 
       def property id, name
-        query = "/rxcui/#{id}/property?propName=#{name.upcase}"
-        return get_response_hash(query)[:property_concept_group][:property_concept][:prop_value]
+        query    = "/rxcui/#{id}/property?propName=#{name.upcase}"
+        response = get_response_hash(query)
+
+        concept_group = response[:property_concept_group]
+        return nil unless concept_group
+
+        concepts = concept_group[:property_concept]
+        return concepts ? concepts[:prop_value] : nil
       end
 
       def quantity id
