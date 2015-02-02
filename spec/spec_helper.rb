@@ -1,4 +1,4 @@
-require 'coveralls'
-Coveralls.wear!
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 
 require_relative '../lib/rx_nav'

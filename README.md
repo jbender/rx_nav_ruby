@@ -1,8 +1,8 @@
 # RxNav
 
 [![Gem Version](http://img.shields.io/gem/v/rx_nav.svg?style=flat-square)](https://rubygems.org/gems/rx_nav) [![Dependency Status](http://img.shields.io/gemnasium/jbender/rx_nav_ruby.svg?style=flat-square)](https://gemnasium.com/jbender/rx_nav_ruby)
- [![Code Climate](http://img.shields.io/codeclimate/github/jbender/rx_nav_ruby.svg?style=flat-square)](https://codeclimate.com/github/jbender/rx_nav_ruby) [![Coverage Status](https://img.shields.io/coveralls/jbender/rx_nav_ruby.svg?style=flat-square)](https://coveralls.io/r/jbender/rx_nav_ruby)
- [![Build Status](http://img.shields.io/travis/jbender/rx_nav_ruby.svg?style=flat-square)](https://travis-ci.org/jbender/rx_nav_ruby)
+ [![Code Climate](http://img.shields.io/codeclimate/github/jbender/rx_nav_ruby.svg?style=flat-square)](https://codeclimate.com/github/jbender/rx_nav_ruby) [![Test Coverage](https://img.shields.io/codeclimate/coverage/github/jbender/rx_nav_ruby.svg?style=flat-square)](https://codeclimate.com/github/jbender/rx_nav_ruby)
+ [ ![Codeship Status for jbender/rx_nav_ruby](https://img.shields.io/codeship/e1dd97e0-8d48-0132-a9a4-5691319bff63.svg?style=flat-square)](https://codeship.com/projects/60640)
 
 This gem makes it easier to work with the RxNav REST APIs, as enumerated on [this page](http://rxnav.nlm.nih.gov/APIsOverview.html).
 
