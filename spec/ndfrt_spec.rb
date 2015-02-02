@@ -1,184 +1,80 @@
 require 'spec_helper'
+require 'support/api'
+require 'support/array_type'
 
 describe RxNav::NDFRT do
 
-  describe "Remote endpoints" do
-    before :all do
-      @url      = "http://rxnav.nlm.nih.gov/REST/Ndfrt"
-      @response = Net::HTTP.get(URI("#{@url}/json"))
-      @json     = JSON.parse(@response)
-      @resource_list = @json["resourceList"]["resource"]
-    end
+  describe "remote endpoints" do
+    url      = "http://rxnav.nlm.nih.gov/REST/Ndfrt"
+    response = Net::HTTP.get(URI("#{url}/json"))
+    subject  { JSON.parse(response)["resourceList"]["resource"] }
 
-    it "should contain #{@url}/version" do
-      expect(@resource_list).to include("#{@url}/version")
-    end
-
-    it "should contain #{@url}/associationList" do
-      expect(@resource_list).to include("#{@url}/associationList")
-    end
-
-    it "should contain #{@url}/typeList" do
-      expect(@resource_list).to include("#{@url}/typeList")
-    end
-
-    it "should contain #{@url}/kindList" do
-      expect(@resource_list).to include("#{@url}/kindList")
-    end
-
-    it "should contain #{@url}/propertyList" do
-      expect(@resource_list).to include("#{@url}/propertyList")
-    end
-
-    it "should contain #{@url}/roleList" do
-      expect(@resource_list).to include("#{@url}/roleList")
-    end
-
-    it "should contain #{@url}/idType={idType}&idString={idString}" do
-      expect(@resource_list).to include("#{@url}/idType={idType}&idString={idString}")
-    end
-
-    it "should contain #{@url}/search?conceptName={conceptName}&kindName={kindName}" do
-      expect(@resource_list).to include("#{@url}/search?conceptName={conceptName}&kindName={kindName}")
-    end
-
-    it "should contain #{@url}/allInfo/{nui}" do
-      expect(@resource_list).to include("#{@url}/allInfo/{nui}")
-    end
-
-    it "should contain #{@url}/allconcepts?kind=yourKinds" do
-      expect(@resource_list).to include("#{@url}/allconcepts?kind=yourKinds")
-    end
+    include_examples 'uses valid endpoints', [
+      "#{url}/version",
+      "#{url}/associationList",
+      "#{url}/typeList",
+      "#{url}/kindList",
+      "#{url}/propertyList",
+      "#{url}/roleList",
+      "#{url}/idType={idType}&idString={idString}",
+      "#{url}/search?conceptName={conceptName}&kindName={kindName}",
+      "#{url}/allInfo/{nui}",
+      "#{url}/allconcepts?kind=yourKinds"
+    ]
   end
 
   describe "#api_version" do
-    it "returns a string" do
-      expect(RxNav::NDFRT.api_version).to be_kind_of(String)
-    end
+    subject { RxNav::NDFRT.api_version }
+
+    it { is_expected.to be_kind_of(String) }
   end
 
   describe "#possible_associations" do
-    before :all do
-      @result = RxNav::NDFRT.possible_associations
-    end
+    subject { RxNav::NDFRT.possible_associations }
 
-    it "returns an array" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "returns an array of strings" do
-      expect(@result.first).to be_kind_of(String)
-    end
+    include_examples 'should be an array of', String
   end
 
   describe "#possible_types" do
-    before :all do
-      @result = RxNav::NDFRT.possible_types
-    end
+    subject { RxNav::NDFRT.possible_types }
 
-    it "returns an array" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "returns an array of strings" do
-      expect(@result.first).to be_kind_of(String)
-    end
+    include_examples 'should be an array of', String
   end
 
   describe "#possible_kinds" do
-    before :all do
-      @result = RxNav::NDFRT.possible_kinds
-    end
+    subject { RxNav::NDFRT.possible_kinds }
 
-    it "returns an array" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "returns an array of strings" do
-      expect(@result.first).to be_kind_of(String)
-    end
+    include_examples 'should be an array of', String
   end
 
   describe "#possible_properties" do
-    before :all do
-      @result = RxNav::NDFRT.possible_properties
-    end
+    subject { RxNav::NDFRT.possible_properties }
 
-    it "returns an array" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "returns an array of strings" do
-      expect(@result.first).to be_kind_of(String)
-    end
+    include_examples 'should be an array of', String
   end
 
   describe "#possible_roles" do
-    before :all do
-      @result = RxNav::NDFRT.possible_roles
-    end
+    subject { RxNav::NDFRT.possible_roles }
 
-    it "returns an array" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "returns an array of strings" do
-      expect(@result.first).to be_kind_of(String)
-    end
+    include_examples 'should be an array of', String
   end
 
   describe "#find_by_id for type RXCUI and id 161" do
-    before :all do
-      @result = RxNav::NDFRT.find_by_id 'RXCUI', '161'
-    end
+    subject { RxNav::NDFRT.find_by_id 'RXCUI', '161' }
 
-    it "returns an array of objects" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "should not be empty" do
-      expect(@result).to_not be_empty
-    end
-
-    it "should contain concepts" do
-      expect(@result.first).to be_kind_of(RxNav::Concept)
-    end
+    include_examples 'should be an array of', RxNav::Concept
   end
 
   describe "#find_by_name morphine without kind" do
-    before :all do
-      @result = RxNav::NDFRT.find_by_name 'morphine'
-    end
+    subject { RxNav::NDFRT.find_by_name 'morphine' }
 
-    it "returns an array of objects" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "should not be empty" do
-      expect(@result).to_not be_empty
-    end
-
-    it "should contain concepts" do
-      expect(@result.first).to be_kind_of(RxNav::Concept)
-    end
+    include_examples 'should be an array of', RxNav::Concept
   end
 
   describe "#find_by_name morphine with kind ingredient" do
-    before :all do
-      @result = RxNav::NDFRT.find_by_name 'morphine', 'ingredient'
-    end
+    subject { RxNav::NDFRT.find_by_name 'morphine', 'ingredient' }
 
-    it "returns an array of objects" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "should not be empty" do
-      expect(@result).to_not be_empty
-    end
-
-    it "should contain concepts" do
-      expect(@result.first).to be_kind_of(RxNav::Concept)
-    end
+    include_examples 'should be an array of', RxNav::Concept
   end
 
   describe "#find_by with hash of name" do
@@ -206,21 +102,9 @@ describe RxNav::NDFRT do
   end
 
   describe "#all_records_by_kind" do
-    before :all do
-      @result = RxNav::NDFRT.all_records_by_kind "pharmacokinetics"
-    end
+    subject { RxNav::NDFRT.all_records_by_kind "pharmacokinetics" }
 
-    it "should return an array" do
-      expect(@result).to be_kind_of(Array)
-    end
-
-    it "should not be empty" do
-      expect(@result).to_not be_empty
-    end
-
-    it "should contain concepts" do
-      expect(@result.first).to be_kind_of(RxNav::Concept)
-    end
+    include_examples 'should be an array of', RxNav::Concept
   end
 
 end
