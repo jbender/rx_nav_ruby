@@ -107,7 +107,7 @@ module RxNav
         data = get_response_hash(query)
         if data[:id_group]
           data = [data] unless data.is_a?(Array)
-          return data.map { |c| c[:rxnorm_id] }
+          return data.map { |c| c[:id_group][:rxnorm_id] }
         else
           return nil
         end
