@@ -107,4 +107,10 @@ describe RxNav::NDFRT do
     include_examples 'should be an array of', RxNav::Concept
   end
 
+  describe "#get_info" do
+    subject { RxNav::NDFRT.get_info "N0000152900" }
+
+    it { is_expected.to be_kind_of(RxNav::Concept) }
+  end
+
 end
