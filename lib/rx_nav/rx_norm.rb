@@ -11,10 +11,12 @@ module RxNav
 
         # Get the data we care about in the right form
         data = get_response_hash(query)[:approximate_group][:candidate]
-        data = [data] if (data && !data.is_a?(Array))
 
         # If we didn't get anything, say so
         return nil if data.nil?
+
+        # Put it in the right form
+        data = RxNav.ensure_array data
 
         return data.map { |c| RxNav::Concept.new(c) }
       end
@@ -67,8 +69,7 @@ module RxNav
         status.send("active?=", reported_status == 'active')
 
         if status.remapped?
-          concepts = data[:min_concept_group][:min_concept]
-          concepts = [concepts] if (concepts && !concepts.is_a?(Array))
+          concepts = RxNav.ensure_array data[:min_concept_group][:min_concept]
           status.remapped_to = concepts.map { |c| c[:rxcui] }
         end
 
@@ -112,7 +113,7 @@ module RxNav
       def extract_rxcui query
         data = get_response_hash(query)
         if data[:id_group]
-          data = [data] unless data.is_a?(Array)
+          data = RxNav.ensure_array data
           return data.map { |c| c[:id_group][:rxnorm_id] }
         else
           return nil

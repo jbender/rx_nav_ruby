@@ -24,4 +24,8 @@ module RxNav
     return RxNav.nori.parse(Net::HTTP.get request)
   end
 
+  def self.ensure_array obj
+    (obj && !obj.is_a?(Array)) ? [obj] : obj
+  end
+
 end

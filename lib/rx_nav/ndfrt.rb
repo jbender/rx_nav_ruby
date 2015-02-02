@@ -38,7 +38,7 @@ module RxNav
         type  = type.upcase
         id    = id.to_s
         query = "/idType=#{type}&idString=#{id}"
-        return get_concepts query
+        get_concepts query
       end
 
       def find_by_name name, kind = nil
@@ -47,7 +47,7 @@ module RxNav
           kind = kind.upcase + '_KIND'
           query += "&kindName=#{kind}"
         end
-        return get_concepts query
+        get_concepts query
       end
 
       # PLEASE NOTE:
@@ -97,8 +97,7 @@ module RxNav
       def get_concepts query
         data = get_response_hash(query)[:group_concepts]
         if data && data[:concept]
-          concepts = data[:concept]
-          concepts = [concepts] unless concepts.is_a?(Array)
+          concepts = RxNav.ensure_array data[:concept]
           return concepts.map { |c| RxNav::Concept.new(c) }
         else
           return nil
