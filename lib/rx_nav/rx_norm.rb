@@ -80,14 +80,21 @@ module RxNav
         return OpenStruct.new get_response_hash(query)[:properties]
       end
 
+      def property id, name
+        query = "/rxcui/#{id}/property?propName=#{name.upcase}"
+        return get_response_hash(query)[:property_concept_group][:property_concept][:prop_value]
+      end
+
       def quantity id
-        query = "/rxcui/#{id}/quantity"
-        return get_response_hash(query)[:quantity_group][:quantity]
+        property id, "quantity"
       end
 
       def strength id
-        query = "/rxcui/#{id}/strength"
-        return get_response_hash(query)[:strength_group][:strength]
+        property id, "strength"
+      end
+
+      def available_strength id
+        property id, "available_strength"
       end
 
       private
