@@ -5,7 +5,7 @@ require 'support/array_type'
 describe RxNav::RxNorm do
 
   describe "remote endpoints" do
-    url      = "http://rxnav.nlm.nih.gov/REST"
+    url      = "https://rxnav.nlm.nih.gov/REST"
     response = Net::HTTP.get(URI("#{url}/json"))
     subject  { JSON.parse(response)["resourceList"]["resource"] }
 
@@ -17,7 +17,7 @@ describe RxNav::RxNorm do
       "#{url}/spellingsuggestions?name=yourName",
       "#{url}/rxcui/{rxcui}/status",
       "#{url}/rxcui/{rxcui}/properties",
-      "#{url}/rxcui/{rxcui}/property?propName=propName"
+      "#{url}/rxcui/{rxcui}/property?propName=propName",
     ]
   end
 
