@@ -18,6 +18,7 @@ describe RxNav::RxNorm do
       "#{url}/rxcui/{rxcui}/status",
       "#{url}/rxcui/{rxcui}/properties",
       "#{url}/rxcui/{rxcui}/property?propName=propName",
+      "#{url}/displaynames",
     ]
   end
 
@@ -89,4 +90,11 @@ describe RxNav::RxNorm do
     it { is_expected.to be_kind_of(OpenStruct) }
   end
 
+  describe "#displaynames" do
+    subject { RxNav::RxNorm.displaynames }
+
+    include_examples 'should be an array of', String
+    it { is_expected.to include('acetaminophen') }
+    it { is_expected.to include('tylenol') }
+  end
 end
