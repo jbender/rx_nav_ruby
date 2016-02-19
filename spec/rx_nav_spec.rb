@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "http://rxnav.nlm.nih.gov/REST" do
+describe "https://rxnav.nlm.nih.gov/REST" do
   before :all do
-    @url      = URI "http://rxnav.nlm.nih.gov/REST/json"
+    @url      = URI "https://rxnav.nlm.nih.gov/REST/json"
     @response = Net::HTTP.get(@url)
     @json     = JSON.parse(@response)
   end
