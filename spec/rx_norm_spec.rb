@@ -17,7 +17,7 @@ describe RxNav::RxNorm do
       "#{url}/spellingsuggestions?name=yourName",
       "#{url}/rxcui/{rxcui}/status",
       "#{url}/rxcui/{rxcui}/properties",
-      "#{url}/rxcui/{rxcui}/property?propName=propName",
+      "#{url}/rxcui/{rxcui}/property?propName=propName"
     ]
   end
 
