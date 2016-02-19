@@ -93,8 +93,7 @@ describe RxNav::RxNorm do
   describe "#displaynames" do
     subject { RxNav::RxNorm.displaynames }
 
-    include_examples 'should be an array of', String
-    it { is_expected.to include('acetaminophen') }
-    it { is_expected.to include('tylenol') }
+    include_examples "should be an array of", String
+    it { is_expected.to include("acetaminophen") }
   end
 end
