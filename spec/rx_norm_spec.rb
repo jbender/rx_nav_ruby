@@ -90,8 +90,8 @@ describe RxNav::RxNorm do
     it { is_expected.to be_kind_of(OpenStruct) }
   end
 
-  describe "#displaynames" do
-    subject { RxNav::RxNorm.displaynames }
+  describe "#display_names" do
+    subject { RxNav::RxNorm.display_names }
 
     include_examples "should be an array of", String
     it { is_expected.to include("acetaminophen") }
