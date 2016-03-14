@@ -17,7 +17,8 @@ describe RxNav::RxNorm do
       "#{url}/spellingsuggestions?name=yourName",
       "#{url}/rxcui/{rxcui}/status",
       "#{url}/rxcui/{rxcui}/properties",
-      "#{url}/rxcui/{rxcui}/property?propName=propName"
+      "#{url}/rxcui/{rxcui}/property?propName=propName",
+      "#{url}/displaynames",
     ]
   end
 
@@ -89,4 +90,10 @@ describe RxNav::RxNorm do
     it { is_expected.to be_kind_of(OpenStruct) }
   end
 
+  describe "#display_names" do
+    subject { RxNav::RxNorm.display_names }
+
+    include_examples "should be an array of", String
+    it { is_expected.to include("acetaminophen") }
+  end
 end

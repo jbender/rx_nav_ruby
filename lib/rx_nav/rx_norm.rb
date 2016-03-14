@@ -104,6 +104,12 @@ module RxNav
         property id, "available_strength"
       end
 
+      def display_names
+        query = "/displaynames"
+        display_terms_list = get_response_hash(query)[:display_terms_list]
+        display_terms_list ? display_terms_list[:term] : nil
+      end
+
       private
 
       def get_response_hash query
